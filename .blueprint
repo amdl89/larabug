@@ -1,0 +1,60 @@
+created:
+    - database/factories/AttachedFileFactory.php
+    - database/factories/AttachmentFactory.php
+    - database/factories/ChangeLogFactory.php
+    - database/factories/CommentFactory.php
+    - database/factories/MessageFactory.php
+    - database/factories/ProjectFactory.php
+    - database/factories/ProjectPriorityFactory.php
+    - database/factories/ProjectUserFactory.php
+    - database/factories/TicketFactory.php
+    - database/factories/TicketPriorityFactory.php
+    - database/factories/TicketTypeFactory.php
+    - database/factories/UserReceivedMessageFactory.php
+    - database/migrations/2022_04_10_130103_create_attached_files_table.php
+    - database/migrations/2022_04_10_130104_create_attachments_table.php
+    - database/migrations/2022_04_10_130105_create_change_logs_table.php
+    - database/migrations/2022_04_10_130106_create_comments_table.php
+    - database/migrations/2022_04_10_130107_create_messages_table.php
+    - database/migrations/2022_04_10_130108_create_projects_table.php
+    - database/migrations/2022_04_10_130109_create_project_priorities_table.php
+    - database/migrations/2022_04_10_130110_create_project_users_table.php
+    - database/migrations/2022_04_10_130111_create_tickets_table.php
+    - database/migrations/2022_04_10_130112_create_ticket_priorities_table.php
+    - database/migrations/2022_04_10_130113_create_ticket_types_table.php
+    - database/migrations/2022_04_10_130114_create_user_received_messages_table.php
+    - app/Models/AttachedFile.php
+    - app/Models/Attachment.php
+    - app/Models/ChangeLog.php
+    - app/Models/Comment.php
+    - app/Models/Message.php
+    - app/Models/Project.php
+    - app/Models/ProjectPriority.php
+    - app/Models/ProjectUser.php
+    - app/Models/Ticket.php
+    - app/Models/TicketPriority.php
+    - app/Models/TicketType.php
+    - app/Models/UserReceivedMessage.php
+    - database/seeders/AttachedFileSeeder.php
+    - database/seeders/AttachmentSeeder.php
+    - database/seeders/ChangeLogSeeder.php
+    - database/seeders/CommentSeeder.php
+    - database/seeders/MessageSeeder.php
+    - database/seeders/ProjectSeeder.php
+    - database/seeders/ProjectPrioritySeeder.php
+    - database/seeders/TicketSeeder.php
+    - database/seeders/TicketPrioritySeeder.php
+    - database/seeders/TicketTypeSeeder.php
+models:
+    AttachedFile: { version: integer, link: 'string:500', attachmentId: foreignId }
+    Attachment: { name: string, notes: 'text nullable', currentVersion: integer, attachableId: foreignId, attachableType: string }
+    ChangeLog: { data: json, date: dateTime, changableId: foreignId, changableType: string, initiatorId: foreignId }
+    Comment: { body: text, userId: foreignId, ticketId: foreignId, parentId: foreignId }
+    Message: { subject: string, body: text, sentStatus: integer, senderId: foreignId }
+    Project: { title: string, description: text, status: string, deadline: 'dateTime nullable', priorityId: foreignId }
+    ProjectPriority: { name: string, color: string }
+    ProjectUser: { userId: foreignId, projectrId: foreignId }
+    Ticket: { name: string, description: text, status: text, priorityId: foreignId, typeId: foreignId, creatorId: foreignId, assigneeId: foreignId, projectId: foreignId }
+    TicketPriority: { name: string, color: string }
+    TicketType: { name: string, color: string }
+    UserReceivedMessage: { receivedStatus: string, receiverId: foreignId, messageId: foreignId }

@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+    "allowJs": true,
+    },
+    "include": [
+        "resources/src/**/*"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}

@@ -1,0 +1,70 @@
+models:
+  AttachedFile:
+    version: integer
+    link: string:500
+    attachmentId: foreignId
+  Attachment:
+    name: string
+    notes: text nullable
+    currentVersion: integer
+    attachableId: foreignId
+    attachableType: string
+
+  ChangeLog:
+    data: json
+    date: dateTime
+    changableId: foreignId
+    changableType: string
+    initiatorId: foreignId
+
+  Comment:
+    body: text
+    userId: foreignId
+    ticketId: foreignId
+    parentId: foreignId
+
+  Message:
+    subject: string
+    body: text
+    sentStatus: integer
+    senderId: foreignId
+
+  Project:
+    title: string
+    description: text
+    status: string
+    deadline: dateTime nullable
+    priorityId: foreignId
+
+  ProjectPriority:
+    name: string
+    color: string
+
+  ProjectUser:
+    userId: foreignId
+    projectrId: foreignId
+
+  Ticket:
+    name: string
+    description: text
+    status: text
+    priorityId: foreignId
+    typeId: foreignId
+    creatorId: foreignId
+    assigneeId: foreignId
+    projectId: foreignId
+
+  TicketPriority:
+    name: string
+    color: string
+
+  TicketType:
+    name: string
+    color: string
+
+  UserReceivedMessage:
+    receivedStatus: string
+    receiverId: foreignId
+    messageId: foreignId
+
+seeders: AttachedFile, Attachment, ChangeLog, Comment, Message, Project, ProjectPriority,     Ticket, TicketPriority, TicketType
