@@ -1,6 +1,9 @@
 <?php
 
+use App\Models\Attachment;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 Route::get('/', fn () => redirect('/login'))
     ->name('welcome')
@@ -283,5 +286,8 @@ if (app()->environment('local'))
 {
     Route::get('/test', function ()
     {
+        dd(
+            collect(DB::select('SHOW TABLES'))->map(fn ($val) => $val->{"Tables_in_" . env('DB_DATABASE')})->all()
+        );
     });
 }

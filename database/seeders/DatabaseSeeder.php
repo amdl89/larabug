@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
         File::cleanDirectory(storage_path('app/attachedFiles'));
         File::cleanDirectory(storage_path('app/avatars'));
         File::cleanDirectory(storage_path('app/projectCoverImages'));
-        File::cleanDirectory(storage_path('indexes'));
+        File::cleanDirectory(storage_path('app/indexes'));
 
         // order is important
         $this->call([

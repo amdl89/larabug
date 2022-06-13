@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Spatie\Permission\PermissionRegistrar;
 
 class AddForeignKeyConstraints extends Migration
 {
@@ -65,6 +66,18 @@ class AddForeignKeyConstraints extends Migration
         {
             $table->foreign('uploaderId')->references('id')->on('users')->nullOnDelete();
         });
+
+        $tableNames = config('permission.table_names');
+        Schema::table(
+            $tableNames['model_has_roles'],
+            function (Blueprint $table) use ($tableNames)
+            {
+                $table->foreign(PermissionRegistrar::$pivotRole)
+                    ->references('id')
+                    ->on($tableNames['roles'])
+                    ->onDelete('cascade');
+            }
+        );
     }
 
     /**
@@ -76,17 +89,23 @@ class AddForeignKeyConstraints extends Migration
     {
         Schema::table('user_received_messages', function (Blueprint $table)
         {
-            $table->dropForeign(['receiverId', 'messageId']);
+            $table->dropForeign(['receiverId']);
+            $table->dropForeign(['messageId']);
         });
 
         Schema::table('tickets', function (Blueprint $table)
         {
-            $table->dropForeign(['priorityId', 'typeId', 'creatorId', 'assigneeId', 'projectId']);
+            $table->dropForeign(['priorityId']);
+            $table->dropForeign(['typeId']);
+            $table->dropForeign(['creatorId']);
+            $table->dropForeign(['assigneeId']);
+            $table->dropForeign(['projectId']);
         });
 
         Schema::table('project_users', function (Blueprint $table)
         {
-            $table->dropForeign(['userId', 'projectId']);
+            $table->dropForeign(['userId']);
+            $table->dropForeign(['projectId']);
         });
 
         Schema::table('projects', function (Blueprint $table)
@@ -106,7 +125,9 @@ class AddForeignKeyConstraints extends Migration
 
         Schema::table('comments', function (Blueprint $table)
         {
-            $table->dropForeign(['userId', 'ticketId', 'parentId']);
+            $table->dropForeign(['userId']);
+            $table->dropForeign(['ticketId']);
+            $table->dropForeign(['parentId']);
         });
 
         Schema::table('users', function (Blueprint $table)
@@ -118,5 +139,14 @@ class AddForeignKeyConstraints extends Migration
         {
             $table->dropForeign(['uploaderId']);
         });
+
+        $tableNames = config('permission.table_names');
+        Schema::table(
+            $tableNames['model_has_roles'],
+            function (Blueprint $table)
+            {
+                $table->dropForeign([PermissionRegistrar::$pivotRole]);
+            }
+        );
     }
 }

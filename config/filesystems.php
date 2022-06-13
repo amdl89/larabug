@@ -89,7 +89,14 @@ return [
         'sample' => [
             'driver' => 'local',
             'root' => storage_path('app/samples'),
-            'url' => env('APP_URL') . '/storage',
+            'url' => env('APP_URL') . '/samples',
+            'visibility' => 'private',
+        ],
+
+        'dbDump' => [
+            'driver' => 'local',
+            'root' => storage_path('app/dbDumps'),
+            'url' => env('APP_URL') . '/dbDumps',
             'visibility' => 'private',
         ],
 
