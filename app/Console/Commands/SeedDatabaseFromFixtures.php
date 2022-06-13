@@ -64,8 +64,30 @@ class SeedDatabaseFromFixtures extends Command
 
     private function getDbTableNames()
     {
-        return collect(
-            DB::select('SHOW TABLES')
-        )->map(fn ($val) => $val->{"Tables_in_" . env('DB_DATABASE')});
+        return collect([
+            0 => "attachments",
+            1 => "change_logs",
+            2 => "comments",
+            3 => "failed_jobs",
+            4 => "jobs",
+            5 => "media",
+            6 => "messages",
+            7 => "migrations",
+            8 => "model_has_permissions",
+            9 => "model_has_roles",
+            10 => "password_resets",
+            11 => "permissions",
+            12 => "profiles",
+            13 => "project_priorities",
+            14 => "project_users",
+            15 => "projects",
+            16 => "role_has_permissions",
+            17 => "roles",
+            18 => "ticket_priorities",
+            19 => "ticket_types",
+            20 => "tickets",
+            21 => "user_received_messages",
+            22 => "users",
+        ]);
     }
 }
