@@ -28,7 +28,7 @@ class StoreMessageRequest extends FormRequest
     public function rules()
     {
         return [
-            'subject' => ['required', 'between:5,200'],
+            'subject' => ['required', 'between:5,190'],
             'body' => ['required', 'between:5,2000'],
             'sentStatus' => [
                 'required',

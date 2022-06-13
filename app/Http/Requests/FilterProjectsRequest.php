@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use App\Enums\DateRange;
 use App\Enums\ProjectStatus;
-use App\Enums\TicketStatus;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Validation\Rule;
