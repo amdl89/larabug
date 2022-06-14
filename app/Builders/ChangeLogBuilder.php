@@ -55,10 +55,10 @@ class ChangeLogBuilder extends Builder
                 $query->selectRaw(
                     <<<'SQL'
                     (CASE
-                        WHEN JSON_EXTRACT(`data`, '$.property') = 'Priority' THEN JSON_OBJECT('property', JSON_EXTRACT(`data`, '$.property'), 'oldValue', (SELECT `name` FROM ticket_priorities WHERE id = JSON_EXTRACT(`data`, '$.oldValue')), 'newValue', (SELECT `name` FROM ticket_priorities WHERE id = JSON_EXTRACT(`data`, '$.newValue')))
-                        WHEN JSON_EXTRACT(`data`, '$.property') = 'Type' THEN JSON_OBJECT('property', JSON_EXTRACT(`data`, '$.property'), 'oldValue', (SELECT `name` FROM ticket_types WHERE id = JSON_EXTRACT(`data`, '$.oldValue')), 'newValue', (SELECT `name` FROM ticket_types WHERE id = JSON_EXTRACT(`data`, '$.newValue')))
-                        WHEN JSON_EXTRACT(`data`, '$.property') = 'Assignee' THEN JSON_OBJECT('property', JSON_EXTRACT(`data`, '$.property'), 'oldValue', (SELECT `name` FROM profiles WHERE id = (SELECT profileId FROM users WHERE id = JSON_EXTRACT(`data`, '$.oldValue'))), 'newValue', (SELECT `name` FROM profiles WHERE id = (select profileId from users where id = JSON_EXTRACT(`data`, '$.newValue'))))
-                        ELSE `data`
+                        WHEN data->>'property' = 'Priority' THEN json_build_object('property', data->>'property', 'oldValue', (SELECT tp.name FROM ticket_priorities as tp WHERE id = (data->>'oldValue')::bigint), 'newValue', (SELECT tp.name FROM ticket_priorities as tp WHERE id = (data->>'newValue')::bigint))
+                        WHEN data->>'property' = 'Type' THEN json_build_object('property', data->>'property', 'oldValue', (SELECT tt.name FROM ticket_types as tt WHERE id = (data->>'oldValue')::bigint), 'newValue', (SELECT tt.name FROM ticket_types as tt WHERE id = (data->>'newValue')::bigint))
+                        WHEN data->>'property' = 'Assignee' THEN json_build_object('property', data->>'property', 'oldValue', (SELECT pr.name FROM profiles as pr WHERE id = (SELECT "profileId" FROM users WHERE id = (data->>'oldValue')::bigint)), 'newValue', (SELECT pr.name FROM profiles as pr WHERE id = (select "profileId" from users where id = (data->>'newValue')::bigint)))
+                        ELSE data
                     END)
                     SQL
                 );

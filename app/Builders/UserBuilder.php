@@ -5,7 +5,6 @@ namespace App\Builders;
 use App\Enums\DateRange;
 use App\Models\Profile;
 use Illuminate\Database\Eloquent\Builder;
-use Spatie\Permission\Models\Role;
 
 class UserBuilder extends Builder
 {

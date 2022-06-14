@@ -26,15 +26,14 @@ class QueryBuilderMacrosServiceProvider extends ServiceProvider
     {
         QueryBuilder::macro(
             'orderByPosition',
-            function (string $keyFieldName, iterable $keys, string $order = 'asc')
+            function (string $keyFieldName, iterable $keys, string $order = 'asc', string $type = 'bigint')
             {
                 if (collect($keys)->isEmpty())
-                {
                     return $this;
-                }
-                $keysParamString = collect($keys)->join(', ');
 
-                return $this->orderByRaw("FIELD({$keyFieldName}, {$keysParamString}) {$order}");
+                $keysParamString = collect($keys)->join(',');
+
+                return $this->orderByRaw("array_position(array[{$keysParamString}]::{$type}[], {$keyFieldName}) {$order}");
             }
         );
 

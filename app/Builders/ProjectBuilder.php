@@ -6,7 +6,6 @@ use App\Enums\DateRange;
 use App\Enums\ProjectStatus;
 use App\Models\Profile;
 use App\Models\User;
-use DB;
 use Illuminate\Database\Eloquent\Builder;
 
 class ProjectBuilder extends Builder
