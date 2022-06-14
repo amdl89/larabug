@@ -95,18 +95,12 @@ class UserBuilder extends Builder
     public function orderByName($order = 'asc')
     {
         $this->orderBy(
-            function ($query)
-            {
-                $query->select('name')
-                    ->from('profiles')
-                    ->whereColumn(
-                        'profiles.userId',
-                        'users.id'
-                    )
-                    ->limit(1);
-            },
+            Profile::select('name')
+                ->whereColumn('users.profileId', 'profiles.id')
+                ->limit(1),
             $order
         );
+
         return $this;
     }
 }

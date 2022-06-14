@@ -4,6 +4,7 @@ namespace App\Builders;
 
 use App\Enums\DateRange;
 use App\Enums\ProjectStatus;
+use App\Models\Profile;
 use App\Models\User;
 use DB;
 use Illuminate\Database\Eloquent\Builder;
@@ -157,16 +158,9 @@ class ProjectBuilder extends Builder
     public function orderBySupervisorName($order = 'asc')
     {
         $this->orderBy(
-            function ($query)
-            {
-                $query->select('name')
-                    ->from('profiles')
-                    ->whereColumn(
-                        'profiles.userId',
-                        'supervisorId'
-                    )
-                    ->limit(1);
-            },
+            Profile::select('name')
+                ->whereHas('user', fn ($q) => $q->whereColumn('users.id', 'supervisorId'))
+                ->limit(1),
             $order
         );
 

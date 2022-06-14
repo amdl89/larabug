@@ -4,6 +4,7 @@ namespace App\Builders;
 
 use App\Enums\DateRange;
 use App\Enums\TicketStatus;
+use App\Models\Profile;
 use Illuminate\Database\Eloquent\Builder;
 
 class TicketBuilder extends Builder
@@ -116,34 +117,21 @@ class TicketBuilder extends Builder
     public function orderByCreatorName($order = 'asc')
     {
         $this->orderBy(
-            function ($query)
-            {
-                $query->select('name')
-                    ->from('profiles')
-                    ->whereColumn(
-                        'profiles.userId',
-                        'tickets.creatorId'
-                    )
-                    ->limit(1);
-            },
+            Profile::select('name')
+                ->whereHas('user', fn ($q) => $q->whereColumn('users.id', 'tickets.creatorId'))
+                ->limit(1),
             $order
         );
+
         return $this;
     }
 
     public function orderByAssigneeName($order = 'asc')
     {
         $this->orderBy(
-            function ($query)
-            {
-                $query->select('name')
-                    ->from('profiles')
-                    ->whereColumn(
-                        'profiles.userId',
-                        'tickets.assigneeId'
-                    )
-                    ->limit(1);
-            },
+            Profile::select('name')
+                ->whereHas('user', fn ($q) => $q->whereColumn('users.id', 'tickets.assigneeId'))
+                ->limit(1),
             $order
         );
 
