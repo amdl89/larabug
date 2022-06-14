@@ -204,7 +204,7 @@ class TicketSeeder extends Seeder
                                 [TicketStatus::Reopended, TicketStatus::Closed, TicketStatus::Verified]
                             )
                             ->inRandomOrder()
-                            ->take(1)
+                            ->take(2)
                             ->get()
                             ->each(
                                 function (Ticket $ticket) use ($devsForProject, $ticketPriorities, $ticketTypes)
