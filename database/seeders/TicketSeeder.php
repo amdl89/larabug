@@ -57,14 +57,15 @@ class TicketSeeder extends Seeder
                                 fn (Ticket $ticket) => $ticket->saveQuietly()
                             );
 
-                        Ticket::all()
+                        $project->tickets()
+                            ->get()
                             ->each(function (Ticket $ticket)
                             {
-                                if ($this->faker->numberBetween(1, 10) > 5)
+                                if ($this->faker->numberBetween(1, 10) > 7)
                                     $ticket->assignee()->dissociate()->saveQuietly();
                             });
 
-                        Ticket::query()
+                        $project->tickets()
                             ->inRandomOrder()
                             ->take(1)
                             ->get()
@@ -108,7 +109,7 @@ class TicketSeeder extends Seeder
                                 }
                             );
 
-                        Ticket::query()
+                        $project->tickets()
                             ->whereNotIn(
                                 'status',
                                 [TicketStatus::Reopended]
@@ -154,7 +155,7 @@ class TicketSeeder extends Seeder
                                 }
                             );
 
-                        Ticket::query()
+                        $project->tickets()
                             ->whereNotIn(
                                 'status',
                                 [TicketStatus::Reopended, TicketStatus::Closed]
@@ -198,7 +199,7 @@ class TicketSeeder extends Seeder
                                 }
                             );
 
-                        Ticket::query()
+                        $project->tickets()
                             ->whereNotIn(
                                 'status',
                                 [TicketStatus::Reopended, TicketStatus::Closed, TicketStatus::Verified]
@@ -245,7 +246,7 @@ class TicketSeeder extends Seeder
                                 }
                             );
 
-                        Ticket::query()
+                        $project->tickets()
                             ->whereNotIn(
                                 'status',
                                 [
