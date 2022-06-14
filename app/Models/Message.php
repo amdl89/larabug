@@ -24,7 +24,7 @@ class Message extends Model
         );
     }
 
-    public $perPage = 10;
+    public $perPage = 6;
 
     /**
      * The attributes that are mass assignable.

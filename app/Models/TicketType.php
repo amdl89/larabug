@@ -11,7 +11,7 @@ class TicketType extends Model
 {
     use HasFactory, Searchable, ScoutSearchScopes;
 
-    public $perPage = 10;
+    public $perPage = 5;
 
     /**
      * The attributes that are mass assignable.
