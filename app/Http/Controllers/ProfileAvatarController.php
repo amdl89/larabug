@@ -14,7 +14,7 @@ class ProfileAvatarController extends Controller
         Gate::authorize('update-profile-avatar', [$profile]);
 
         $request->validate([
-            'avatar' => ['required', 'file', 'image', 'max:20480'],
+            'avatar' => ['required', 'file', 'image', 'max:10240'],
         ]);
 
         $profile->addMediaFromRequest('avatar')

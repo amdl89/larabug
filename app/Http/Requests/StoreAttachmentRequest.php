@@ -26,7 +26,7 @@ class StoreAttachmentRequest extends FormRequest
         return [
             'name' => ['required', 'between:5,100'],
             'notes' =>  ['required', 'between:5,2000'],
-            'attachedFile' => ['required', 'file', 'max:40960'],
+            'attachedFile' => ['required', 'file', 'max:10240'],
         ];
     }
 }

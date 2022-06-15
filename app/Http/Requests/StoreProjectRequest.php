@@ -31,7 +31,7 @@ class StoreProjectRequest extends FormRequest
             'deadline' => ['required', 'date', 'after_or_equal:today'],
             'priority' => ['required', 'exists:' . ProjectPriority::class . ',id'],
             'supervisor' => ['required', 'nullable', new SupervisorWithIdExists],
-            'coverImage' => ['sometimes', 'nullable', 'file', 'image', 'max:20480'],
+            'coverImage' => ['sometimes', 'nullable', 'file', 'image', 'max:10240'],
         ];
     }
 }

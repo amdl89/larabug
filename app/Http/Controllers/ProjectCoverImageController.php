@@ -14,7 +14,7 @@ class ProjectCoverImageController extends Controller
         Gate::authorize('update-project-cover-image', [$project]);
 
         $request->validate([
-            'coverImage' => ['required', 'file', 'image', 'max:20480'],
+            'coverImage' => ['required', 'file', 'image', 'max:10240'],
         ]);
 
         $project->addMediaFromRequest('coverImage')
