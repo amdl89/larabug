@@ -286,8 +286,8 @@ if (app()->environment('local'))
 {
     Route::get('/test', function ()
     {
-        dd(
-            collect(DB::select('SHOW TABLES'))->map(fn ($val) => $val->{"Tables_in_" . env('DB_DATABASE')})->all()
-        );
+        // dd(
+        //     collect(DB::select('SHOW TABLES'))->map(fn ($val) => $val->{"Tables_in_" . env('DB_DATABASE')})->all()
+        // );
     });
 }

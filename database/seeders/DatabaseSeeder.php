@@ -2,9 +2,16 @@
 
 namespace Database\Seeders;
 
+use App\Models\Message;
+use App\Models\Project;
+use App\Models\ProjectPriority;
+use App\Models\Ticket;
+use App\Models\TicketPriority;
+use App\Models\TicketType;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,10 +22,30 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        File::cleanDirectory(storage_path('app/attachedFiles'));
-        File::cleanDirectory(storage_path('app/avatars'));
-        File::cleanDirectory(storage_path('app/projectCoverImages'));
-        File::cleanDirectory(storage_path('app/indexes'));
+        Storage::disk('attachedFile')->delete(Storage::disk('attachedFile')->allFiles());
+        collect(Storage::disk('attachedFile')->directories())
+            ->each(fn ($dir) => Storage::disk('attachedFile')->deleteDirectory($dir));
+
+        Storage::disk('avatar')->delete(Storage::disk('avatar')->allFiles());
+        collect(Storage::disk('avatar')->directories())
+            ->each(fn ($dir) => Storage::disk('avatar')->deleteDirectory($dir));
+
+        Storage::disk('projectCoverImage')->delete(Storage::disk('projectCoverImage')->allFiles());
+        collect(Storage::disk('projectCoverImage')->directories())
+            ->each(fn ($dir) => Storage::disk('projectCoverImage')->deleteDirectory($dir));
+
+        collect([
+            User::class,
+            Project::class,
+            Ticket::class,
+            Message::class,
+            TicketPriority::class,
+            TicketType::class,
+            ProjectPriority::class
+        ])
+            ->each(fn ($model) =>  Artisan::call('scout:flush', [
+                'model' => $model
+            ]));
 
         // order is important
         $this->call([
@@ -36,11 +63,11 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Artisan::call('scout:import', [
-            'model' => 'App\Models\Ticket'
+            'model' => Ticket::class
         ]);
 
         Artisan::call('scout:import', [
-            'model' => 'App\Models\Message'
+            'model' => Message::class,
         ]);
     }
 }
