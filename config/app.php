@@ -181,7 +181,7 @@ return [
         App\Providers\QueryBuilderMacrosServiceProvider::class,
         App\Providers\DynamicRelationshipsServiceProvider::class,
         App\Providers\EloquentMacrosServiceProvider::class,
-
+        App\Providers\DropboxFilesystemDriverServiceProvider::class,
     ],
 
     /*
@@ -233,7 +233,6 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
     ],
 
 ];

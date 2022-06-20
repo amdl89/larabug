@@ -1,9 +1,12 @@
 <?php
 
 use App\Models\Attachment;
+use App\Models\Profile;
+use Database\Factories\ProfileFactory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 Route::get('/', fn () => redirect('/login'))
     ->name('welcome')
@@ -286,8 +289,13 @@ if (app()->environment('local'))
 {
     Route::get('/test', function ()
     {
-        // dd(
-        //     collect(DB::select('SHOW TABLES'))->map(fn ($val) => $val->{"Tables_in_" . env('DB_DATABASE')})->all()
-        // );
+        // return Attachment::find(1)->getFirstMedia('attachedFile');
+
+        // $attachment = Attachment::factory()->make();
+
+        // dd($attachment
+        //     ->addMediaFromDisk('samplePdf.pdf', 'sample')
+        //     ->preservingOriginal()
+        //     ->toMediaCollection('attachedFile'));
     });
 }

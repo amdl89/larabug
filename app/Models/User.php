@@ -232,10 +232,15 @@ class User extends Authenticatable
 
     public function scopeCanModifyTicket($query, Ticket $ticket)
     {
-        $query->whereRole(UserRole::Admin)
-            ->orWhereHas('supervisedProjects.tickets', fn ($q) => $q->where('tickets.id', $ticket->id))
-            ->orWhereHas('assignedTickets', fn ($q) => $q->where('tickets.id', $ticket->id))
-            ->orWhereHas('tickets', fn ($q) => $q->where('tickets.id', $ticket->id));
+        $query->where(
+            function ($query) use ($ticket)
+            {
+                $query->whereRole(UserRole::Admin)
+                    ->orWhereHas('supervisedProjects.tickets', fn ($q) => $q->where('tickets.id', $ticket->id))
+                    ->orWhereHas('assignedTickets', fn ($q) => $q->where('tickets.id', $ticket->id))
+                    ->orWhereHas('tickets', fn ($q) => $q->where('tickets.id', $ticket->id));
+            }
+        );
     }
 
     public function scopeCanAssignTicket($query, Ticket $ticket)

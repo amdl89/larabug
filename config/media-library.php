@@ -12,13 +12,13 @@ return [
      * The maximum file size of an item in bytes.
      * Adding a larger file will result in an exception.
      */
-    'max_file_size' => 1024 * 1024 * 50, // 50MB
+    'max_file_size' => 1024 * 1024 * 10, // 10MB
 
     /*
      * This queue will be used to generate derived and responsive images.
      * Leave empty to use the default queue.
      */
-    'queue_name' => '',
+    'queue_name' => env('MEDIA_QUEUE_NAME', ''),
 
     /*
      * By default all conversions will be performed on a queue.

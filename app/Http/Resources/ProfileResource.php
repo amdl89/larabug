@@ -25,8 +25,8 @@ class ProfileResource extends JsonResource
             'avatar' =>  $this->when(
                 $this->relationLoaded('media'),
                 fn () => [
-                    'original' => optional($this->getFirstMedia('avatar'))->getFullUrl(),
-                    'thumbnail' => optional($this->getFirstMedia('avatar'))->getFullUrl('avatarThumbnail')
+                    'original' => optional($this->getFirstMedia('avatar'))->getUrl(),
+                    'thumbnail' => optional($this->getFirstMedia('avatar'))->getUrl('avatarThumbnail')
                 ]
             ),
         ];

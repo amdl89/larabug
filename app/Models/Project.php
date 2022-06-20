@@ -76,7 +76,7 @@ class Project extends Model implements HasMedia
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('coverImage')
-            ->useDisk('projectCoverImage')
+            ->useDisk('cloudinary')
             ->singleFile()
             ->registerMediaConversions(function (Media $media)
             {

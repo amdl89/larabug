@@ -241,13 +241,22 @@ class TicketController extends Controller
                         fn ($query, $ticketChangeLogSortOrder) => $query->orderBy('id', $ticketChangeLogSortOrder),
                         fn ($query) => $query->orderBy('id', 'desc')
                     )
+                    ->select('id', 'date')
                     ->withResolvedDataForTicket()
+                    ->withForeignKeys()
                     ->paginate(null, ['*'], 'ticketChangeLogPage'),
             ),
 
             'ticketModifiers' => fn () => UserResource::collection(
                 User::query()
                     ->canModifyTicket($ticket)
+                    ->orWhere(
+                        function ($query) use ($ticket)
+                        {
+                            $query->whereRole(UserRole::Dev)
+                                ->whereHas('projects.tickets', fn ($q) => $q->whereKey($ticket->id));
+                        }
+                    )
                     ->with(['profile' => fn ($q) => $q->select('id', 'name')])
                     ->get()
             ),

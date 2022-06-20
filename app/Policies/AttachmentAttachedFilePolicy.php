@@ -13,7 +13,7 @@ class AttachmentAttachedFilePolicy
 {
     use HandlesAuthorization;
 
-    public function view(User $user, Attachment $attachment)
+    public function show(User $user, Attachment $attachment)
     {
         if ($user->hasRole(UserRole::Admin))
             return true;

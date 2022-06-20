@@ -48,6 +48,33 @@ return [
             'root' => storage_path('app'),
         ],
 
+        'cloudinary' => [
+            'driver'         => 'cloudinary',
+            'api_key'        => env('CLOUDINARY_API_KEY'),
+            'api_secret'     => env('CLOUDINARY_API_SECRET'),
+            'cloud_name'     => env('CLOUDINARY_CLOUD_NAME'),
+            'secure'         => env('CLOUDINARY_SECURE', true),
+            'resource_types' => [
+                'image' => [
+                    'png',
+                    'jpeg',
+                    'jpg',
+                ],
+                'video' => [
+                    'mp4',
+                    'avi',
+                    'mp3',
+                    'flac',
+                ],
+                'raw'   => [
+                    'pdf',
+                    'xlsx',
+                    'csv',
+                    'txt',
+                ],
+            ],
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
@@ -65,32 +92,19 @@ return [
             'endpoint' => env('AWS_ENDPOINT'),
         ],
 
-        'attachedFile' => [
-            'driver' => 'local',
-            'root' => storage_path('app/attachedFiles'),
-            'url' => env('APP_URL') . '/attachedFiles',
-            'visibility' => 'private',
-        ],
-
-        'avatar' => [
-            'driver' => 'local',
-            'root' => storage_path('app/avatars'),
-            'url' => env('APP_URL') . '/avatars',
-            'visibility' => 'public',
-        ],
-
-        'projectCoverImage' => [
-            'driver' => 'local',
-            'root' => storage_path('app/projectCoverImages'),
-            'url' => env('APP_URL') . '/projectCoverImages',
-            'visibility' => 'public',
-        ],
-
         'sample' => [
             'driver' => 'local',
-            'root' => storage_path('app/samples'),
+            'root' => app_path('Storage/samples'),
             'url' => env('APP_URL') . '/samples',
             'visibility' => 'private',
+        ],
+
+        'attachedFile' => [
+            'driver' => 'google',
+            'clientId' => env('GOOGLE_DRIVE_CLIENT_ID'),
+            'clientSecret' => env('GOOGLE_DRIVE_CLIENT_SECRET'),
+            'refreshToken' => env('GOOGLE_DRIVE_REFRESH_TOKEN'),
+            'folder' => env('GOOGLE_DRIVE_ATTACHED_FILES_FOLDER'),
         ],
 
         'dbDump' => [
@@ -115,8 +129,8 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
-        public_path('avatars') => storage_path('app/avatars'),
-        public_path('projectCoverImages') => storage_path('app/projectCoverImages'),
+        // public_path('avatars') => storage_path('app/avatars'),
+        // public_path('projectCoverImages') => storage_path('app/projectCoverImages'),
     ],
 
 ];

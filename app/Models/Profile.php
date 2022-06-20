@@ -32,7 +32,7 @@ class Profile extends Model implements HasMedia
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('avatar')
-            ->useDisk('avatar')
+            ->useDisk('cloudinary')
             ->singleFile()
             ->registerMediaConversions(function (Media $media)
             {

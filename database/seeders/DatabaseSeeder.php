@@ -22,17 +22,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        Storage::disk('cloudinary')->delete(Storage::disk('cloudinary')->allFiles());
+        collect(Storage::disk('cloudinary')->directories())
+            ->each(fn ($dir) => Storage::disk('cloudinary')->deleteDirectory($dir));
+
         Storage::disk('attachedFile')->delete(Storage::disk('attachedFile')->allFiles());
         collect(Storage::disk('attachedFile')->directories())
             ->each(fn ($dir) => Storage::disk('attachedFile')->deleteDirectory($dir));
-
-        Storage::disk('avatar')->delete(Storage::disk('avatar')->allFiles());
-        collect(Storage::disk('avatar')->directories())
-            ->each(fn ($dir) => Storage::disk('avatar')->deleteDirectory($dir));
-
-        Storage::disk('projectCoverImage')->delete(Storage::disk('projectCoverImage')->allFiles());
-        collect(Storage::disk('projectCoverImage')->directories())
-            ->each(fn ($dir) => Storage::disk('projectCoverImage')->deleteDirectory($dir));
 
         collect([
             User::class,

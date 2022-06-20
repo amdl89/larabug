@@ -16,7 +16,7 @@ class ChangeLogResource extends JsonResource
     {
         return [
             'id' => $this->when($this->id, $this->id),
-            // 'data' => $this->when($this->data, $this->data),
+            'data' => $this->when($this->data, $this->data),
             'resolvedData' => $this->when($this->resolvedData, $this->resolvedData),
             'date' => $this->when($this->date, $this->date),
             'createdAt' => $this->when($this->created_at, $this->created_at),
