@@ -26,7 +26,11 @@ class ProfileResource extends JsonResource
                 $this->relationLoaded('media'),
                 fn () => [
                     'original' => optional($this->getFirstMedia('avatar'))->getUrl(),
-                    'thumbnail' => optional($this->getFirstMedia('avatar'))->getUrl('avatarThumbnail')
+                    'thumbnail' => optional(
+                        $this->getFirstMedia('avatar')
+                    )->hasGeneratedConversion('avatarThumbnail') ?
+                        $this->getFirstMedia('avatar')->getFullUrl('avatarThumbnail') :
+                        null,
                 ]
             ),
         ];

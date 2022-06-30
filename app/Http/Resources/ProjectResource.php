@@ -34,7 +34,11 @@ class ProjectResource extends JsonResource
                 $this->relationLoaded('media'),
                 fn () => [
                     'original' => optional($this->getFirstMedia('coverImage'))->getFullUrl(),
-                    'thumbnail' => optional($this->getFirstMedia('coverImage'))->getFullUrl('coverImageThumbnail')
+                    'thumbnail' => optional(
+                        $this->getFirstMedia('coverImage')
+                    )->hasGeneratedConversion('coverImageThumbnail') ?
+                        $this->getFirstMedia('coverImage')->getFullUrl('coverImageThumbnail') :
+                        null,
                 ]
             ),
 
