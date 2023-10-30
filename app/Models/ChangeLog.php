@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ChangeLog extends Model
 {
-    public $perPage = 5;
+    public $perPage = 10;
 
     use HasFactory;
 

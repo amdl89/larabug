@@ -12,7 +12,7 @@ class Attachment extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
 
-    public $perPage = 5;
+    public $perPage = 10;
 
     /**
      * The attributes that are mass assignable.

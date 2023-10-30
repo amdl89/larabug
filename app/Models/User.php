@@ -20,7 +20,7 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasRoles, HasPermissions, Searchable, ScoutSearchScopes;
 
-    public $perPage = 6;
+    public $perPage = 10;
 
     /**
      * The attributes that are mass assignable.

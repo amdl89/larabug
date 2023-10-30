@@ -10,7 +10,7 @@ class Comment extends Model
 {
     use HasFactory;
 
-    public $perPage = 5;
+    public $perPage = 10;
 
     /**
      * The attributes that are mass assignable.
