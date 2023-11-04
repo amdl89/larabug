@@ -5,16 +5,15 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Routing\UrlGenerator;
 
-class AppServiceProvider extends ServiceProvider
-{
+class AppServiceProvider extends ServiceProvider {
     /**
      * Register any application services.
      *
      * @return void
      */
-    public function register()
-    {
+    public function register() {
         //
     }
 
@@ -23,18 +22,19 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
-    {
+    public function boot(UrlGenerator $url) {
+        if (env('APP_ENV') == 'production') {
+            $url->forceScheme('https');
+        }
+
         Schema::defaultStringLength(191);
 
         Storage::extend(
             'google',
-            function ($app, $config)
-            {
+            function ($app, $config) {
                 $options = [];
 
-                if (!empty($config['teamDriveId'] ?? null))
-                {
+                if (!empty($config['teamDriveId'] ?? null)) {
                     $options['teamDriveId'] = $config['teamDriveId'];
                 }
 
