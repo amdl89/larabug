@@ -8,15 +8,13 @@ use League\Flysystem\Filesystem;
 use Spatie\Dropbox\Client;
 use Spatie\FlysystemDropbox\DropboxAdapter;
 
-class DropboxFilesystemDriverServiceProvider extends ServiceProvider
-{
+class DropboxFilesystemDriverServiceProvider extends ServiceProvider {
     /**
      * Register any application services.
      *
      * @return void
      */
-    public function register()
-    {
+    public function register() {
         //
     }
 
@@ -25,15 +23,14 @@ class DropboxFilesystemDriverServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
-    {
-        Storage::extend('dropbox', function ($app, $config)
-        {
-            $client = new Client($config['token']);
+    public function boot() {
+        // Storage::extend('dropbox', function ($app, $config)
+        // {
+        //     $client = new Client($config['token']);
 
-            $adapter = new DropboxAdapter($client);
+        //     $adapter = new DropboxAdapter($client);
 
-            return new Filesystem($adapter, ['case_sensitive' => false]);
-        });
+        //     return new Filesystem($adapter, ['case_sensitive' => false]);
+        // });
     }
 }

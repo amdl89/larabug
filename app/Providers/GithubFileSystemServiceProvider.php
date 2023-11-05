@@ -8,15 +8,13 @@ use League\Flysystem\Filesystem;
 use Radiergummi\FlysystemGitHub\Client;
 use Radiergummi\FlysystemGitHub\GitHubAdapter;
 
-class GithubFileSystemServiceProvider extends ServiceProvider
-{
+class GithubFileSystemServiceProvider extends ServiceProvider {
     /**
      * Register any application services.
      *
      * @return void
      */
-    public function register()
-    {
+    public function register() {
         //
     }
 
@@ -25,17 +23,16 @@ class GithubFileSystemServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
-    {
-        Storage::extend('github', function ($app, $config)
-        {
-            $client = new Client(
-                $config['token'],
-                $config['repository'],
-                $config['branch'],
-            );
+    public function boot() {
+        // Storage::extend('github', function ($app, $config)
+        // {
+        //     $client = new Client(
+        //         $config['token'],
+        //         $config['repository'],
+        //         $config['branch'],
+        //     );
 
-            return new Filesystem(new GitHubAdapter($client, $config));
-        });
+        //     return new Filesystem(new GitHubAdapter($client, $config));
+        // });
     }
 }

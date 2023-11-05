@@ -13,4 +13,4 @@ echo "Running migrations..."
 php artisan migrate --force
 
 echo "Seeding database..."
-php artisan db:seed
+php artisan seed:database-from-fixtures
