@@ -2,8 +2,6 @@ FROM ubuntu:20.04
 
 LABEL maintainer="Taylor Otwell"
 
-ARG WWWGROUP
-
 WORKDIR /var/www/html
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -38,8 +36,8 @@ RUN apt-get update \
 
 RUN setcap "cap_net_bind_service=+ep" /usr/bin/php7.4
 
-RUN groupadd --force -g $WWWGROUP sail
-RUN useradd -ms /bin/bash --no-user-group -g $WWWGROUP -u 1337 sail
+RUN groupadd --force -g 1000 sail
+RUN useradd -ms /bin/bash --no-user-group -g 1000 -u 1337 sail
 
 COPY start-container /usr/local/bin/start-container
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
