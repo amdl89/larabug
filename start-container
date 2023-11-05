@@ -9,9 +9,9 @@ if [ ! -d /.composer ]; then
 fi
 
 npm install
-npm run prod
 composer install
 php artisan optimize:clear
+php artisan storage:link
 php artisan seed:database-from-fixtures
 chmod -R ugo+rw /.composer
 chmod -R ugo+rw /.composer
