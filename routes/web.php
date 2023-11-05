@@ -1,13 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 
 Route::get('/', fn () => redirect('/login'))
     ->name('welcome')
     ->middleware('guest');
 
-Route::middleware('auth')->group(function ()
-{
+Route::middleware('auth')->group(function () {
     Route::get('/home', 'DashboardController')
         ->name('home');
 
@@ -122,8 +122,7 @@ Route::middleware('auth')->group(function ()
     Route::put('/projects/{project}/testers', 'ProjectTesterController@update')
         ->name('projects.testers.update');
 
-    Route::middleware('admin')->group(function ()
-    {
+    Route::middleware('admin')->group(function () {
         Route::get('/ticketPriorities', 'TicketPriorityController@index')
             ->name('ticketPriorities.index');
 
@@ -170,8 +169,7 @@ Route::middleware('auth')->group(function ()
             ->name('users.roles.update');
     });
 
-    Route::middleware('can-manage-own-message')->group(function ()
-    {
+    Route::middleware('can-manage-own-message')->group(function () {
         Route::get('/users/{user}/notInTrashReceivedMessages', 'UserNotInTrashReceivedMessageController@index')
             ->name('users.notInTrashReceivedMessages.index');
 
@@ -279,9 +277,12 @@ Route::middleware('auth')->group(function ()
     });
 });
 
-if (app()->environment('local'))
-{
-    Route::get('/test', function ()
-    {
+if (app()->environment('local')) {
+    Route::get('/test', function () {
     });
 }
+
+Route::get('/deploy', function () {
+    Artisan::call('optimize:clear');
+    Artisan::call('storage:link');
+});
