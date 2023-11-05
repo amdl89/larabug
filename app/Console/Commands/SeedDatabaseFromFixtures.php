@@ -7,8 +7,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
-class SeedDatabaseFromFixtures extends Command
-{
+class SeedDatabaseFromFixtures extends Command {
     /**
      * The name and signature of the console command.
      *
@@ -28,8 +27,7 @@ class SeedDatabaseFromFixtures extends Command
      *
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
     }
 
@@ -38,32 +36,28 @@ class SeedDatabaseFromFixtures extends Command
      *
      * @return int
      */
-    public function handle()
-    {
-        Artisan::call('migrate:fresh');
+    public function handle() {
+        $this->call('migrate:fresh');
 
-        Artisan::call('migrate:rollback', [
+        $this->call('migrate:rollback', [
             '--step' => 1
         ]);
 
         $this->getDbTableNames()
-            ->reject(fn ($table) => $table == 'migrations')
             ->each(
-                function ($table)
-                {
+                function ($table) {
                     DB::table($table)->insert(
                         json_decode(Storage::disk('dbDump')->get("$table.json"), true)
                     );
                 }
             );
 
-        Artisan::call('migrate');
+        $this->call('migrate');
 
         return 0;
     }
 
-    private function getDbTableNames()
-    {
+    private function getDbTableNames() {
         return collect([
             0 => "attachments",
             1 => "change_logs",
@@ -72,7 +66,6 @@ class SeedDatabaseFromFixtures extends Command
             4 => "jobs",
             5 => "media",
             6 => "messages",
-            7 => "migrations",
             8 => "model_has_permissions",
             9 => "model_has_roles",
             10 => "password_resets",
