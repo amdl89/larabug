@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+if [ ! -z "$WWWUSER" ]; then
+    usermod -u $WWWUSER sail
+fi
+
+if [ ! -d /.composer ]; then
+    mkdir /.composer
+fi
+
+npm install
+npm run prod
+composer install
+php artisan optimize:clear
+php artisan seed:database-from-fixtures
+chmod -R ugo+rw /.composer
+
+if [ $# -gt 0 ];then
+    exec gosu $WWWUSER "$@"
+else
+    /usr/bin/supervisord
+fi
