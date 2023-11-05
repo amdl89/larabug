@@ -37,10 +37,13 @@ class SeedDatabaseFromFixtures extends Command {
      * @return int
      */
     public function handle() {
-        $this->call('migrate:fresh');
+        $this->call('migrate:fresh', [
+            '--force' => true,
+        ]);
 
         $this->call('migrate:rollback', [
-            '--step' => 1
+            '--step' => 1,
+            '--force' => true,
         ]);
 
         $this->getDbTableNames()
@@ -52,7 +55,9 @@ class SeedDatabaseFromFixtures extends Command {
                 }
             );
 
-        $this->call('migrate');
+        $this->call('migrate', [
+            '--force' => true,
+        ]);
 
         return 0;
     }
