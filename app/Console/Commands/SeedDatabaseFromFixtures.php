@@ -49,12 +49,6 @@ class SeedDatabaseFromFixtures extends Command {
             ->each(
                 function ($table) {
                     $rows = json_decode(Storage::disk('dbDump')->get("$table.json"), true);
-
-                    // remove id column so that it can be generated from db
-                    foreach ($rows as &$row) {
-                        unset($row['id']);
-                    }
-
                     DB::table($table)->insert(
                         $rows
                     );
