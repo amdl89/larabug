@@ -50,14 +50,12 @@ class SeedDatabaseFromFixtures extends Command {
                 function ($table) {
                     $rows = json_decode(Storage::disk('dbDump')->get("$table.json"), true);
 
-                    // remove id column so that it can be generated from db
-                    foreach ($rows as &$row) {
-                        unset($row['id']);
-                    }
+                    DB::table($table)->insert($rows);
 
-                    DB::table($table)->insert(
-                        $rows
-                    );
+                    // set id sequence to latest
+                    if (count($rows) && isset($rows[0]['id'])) {
+                        DB::statement("SELECT setval('{$table}_id_seq', (SELECT MAX(id) from {$table}));");
+                    }
                 }
             );
 
