@@ -100,13 +100,13 @@ return [
         ],
 
         'attachedFile' => [
-            'driver' => 'local',
-            'root' => storage_path('app/attachedFiles'),
-            'url' => env('APP_URL') . '/attachedFiles',
-            'visibility' => 'private',
+            // 'driver' => 'local',
+            // 'root' => storage_path('app/attachedFiles'),
+            // 'url' => env('APP_URL') . '/attachedFiles',
+            // 'visibility' => 'private',
 
-            // 'driver' => 'dropbox',
-            // 'token'  => env('DROPBOX_TOKEN'),
+            'driver' => 'dropbox',
+            'token'  => env('DROPBOX_TOKEN'),
 
             // 'driver' => 'google',
             // 'clientId' => env('GOOGLE_DRIVE_CLIENT_ID'),
