@@ -82,16 +82,6 @@ return [
             'visibility' => 'public',
         ],
 
-        // 's3' => [
-        //     'driver' => 's3',
-        //     'key' => env('AWS_ACCESS_KEY_ID'),
-        //     'secret' => env('AWS_SECRET_ACCESS_KEY'),
-        //     'region' => env('AWS_DEFAULT_REGION'),
-        //     'bucket' => env('AWS_BUCKET'),
-        //     'url' => env('AWS_URL'),
-        //     'endpoint' => env('AWS_ENDPOINT'),
-        // ],
-
         'sample' => [
             'driver' => 'local',
             'root' => app_path('Storage/samples'),
@@ -124,20 +114,6 @@ return [
                     'txt',
                 ],
             ],
-
-            // 'driver' => 'local',
-            // 'root' => storage_path('app/attachedFiles'),
-            // 'url' => env('APP_URL') . '/attachedFiles',
-            // 'visibility' => 'private',
-
-            // 'driver' => 'dropbox',
-            // 'token'  => env('DROPBOX_TOKEN'),
-
-            // 'driver' => 'google',
-            // 'clientId' => env('GOOGLE_DRIVE_CLIENT_ID'),
-            // 'clientSecret' => env('GOOGLE_DRIVE_CLIENT_SECRET'),
-            // 'refreshToken' => env('GOOGLE_DRIVE_REFRESH_TOKEN'),
-            // 'folder' => env('GOOGLE_DRIVE_ATTACHED_FILES_FOLDER'),
         ],
 
         'dbDump' => [
