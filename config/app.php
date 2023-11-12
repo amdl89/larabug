@@ -167,7 +167,6 @@ return [
          */
         Spatie\Permission\PermissionServiceProvider::class,
         Laravel\Scout\ScoutServiceProvider::class,
-        BC\Laravel\DropboxDriver\ServiceProvider::class,
 
         /*
          * Application Service Providers...
